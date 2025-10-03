@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "ES2020",
+    "lib": ["DOM", "ES2016"],
+    "strict": true,
+    "composite": false,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "inlineSources": false,
+    "moduleResolution": "Bundler",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "lite-position": ["./src/index.ts"],
+      "lite-position/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "web", "**/*.d.ts"],
+  "exclude": ["dist", "build", "es", "lib", "node_modules"]
+}

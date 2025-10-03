@@ -1,0 +1,24 @@
+.transition-apply {
+  transition:
+    transform 150ms ease-in-out,
+    opacity 150ms ease-in-out;
+  transform-origin: var(--transform-origin-x) var(--transform-origin-y);
+}
+
+.transition-apply.preEnter,
+.transition-apply.exiting {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.transition-apply.exited {
+  display: none;
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  pointer-events: none;
+  /* transform: translate(-50%, -50%) rotate(45deg); */
+}
