@@ -41,7 +41,7 @@ const flip = (options: FlipOptions = {}): Middleware => ({
     });
 
     // Check if current placement overflows
-    const isOverflow = detectIsOverflow(side, popperRect, boundaryRect);
+    const isOverflow = detectIsOverflow(side, { boundary: boundaryRect, popper: popperRect });
     // If no overflow, no need to flip
     if (!isOverflow) return { ...baseShared };
 
@@ -50,7 +50,7 @@ const flip = (options: FlipOptions = {}): Middleware => ({
     const [oppositeSide] = splitPlacement(flippedPlacement);
 
     // Check if overflow still occurs after flipping
-    const isFlippedOverflow = detectIsOverflow(oppositeSide, popperRect, boundaryRect);
+    const isFlippedOverflow = detectIsOverflow(oppositeSide, { boundary: boundaryRect, popper: popperRect });
 
     // If still overflow after flipping, keep original position
     if (isFlippedOverflow) return { ...baseShared };
@@ -68,20 +68,25 @@ const flip = (options: FlipOptions = {}): Middleware => ({
 
 export default flip;
 
-function detectIsOverflow(side: Side, popperRect: ClientRectObject, boundaryRect: ClientRectObject) {
+interface DetectOverflowRects {
+  popper: ClientRectObject;
+  boundary: ClientRectObject;
+}
+function detectIsOverflow(side: Side, rects: DetectOverflowRects) {
+  const { popper, boundary } = rects;
   let isOverflow = false;
   switch (side) {
     case 'top':
-      isOverflow = popperRect.top < boundaryRect.top;
+      isOverflow = popper.top < boundary.top;
       break;
     case 'bottom':
-      isOverflow = popperRect.bottom > boundaryRect.bottom;
+      isOverflow = popper.bottom > boundary.bottom;
       break;
     case 'left':
-      isOverflow = popperRect.left < boundaryRect.left;
+      isOverflow = popper.left < boundary.left;
       break;
     case 'right':
-      isOverflow = popperRect.right > boundaryRect.right;
+      isOverflow = popper.right > boundary.right;
       break;
   }
   return isOverflow;

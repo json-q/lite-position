@@ -14,10 +14,6 @@ export default function computedPosition(reference: HTMLElement, popper: HTMLEle
     throw new Error('`reference` or `popper` is missing');
   }
 
-  popper.style.top = '0';
-  popper.style.left = '0';
-  popper.style.transform = 'translate(0, 0)';
-
   const { placement = 'bottom', middleware = [] } = opt;
 
   let rects: ElementRects = getElementRects(reference, popper);

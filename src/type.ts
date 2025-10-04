@@ -44,7 +44,7 @@ export type Rect = {
 
 export type LitePositionOptions = {
   placement?: Placement;
-  middleware?: Middleware[];
+  middleware?: Array<Middleware | null | undefined | false>;
   // placement?: Placement;
   // /**
   //  * @desc 边缘检测的节点，通常情况下，此属性与 `autoUpdate` 的 boundary 数据应保持相同
@@ -96,5 +96,10 @@ export interface MiddlewareData {
   [x: string]: any;
   flip?: {
     boundaryRect: ClientRectObject;
+  };
+  arrow?: {
+    x: number;
+    y: number;
+    rect: ClientRectObject;
   };
 }

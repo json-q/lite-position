@@ -1,4 +1,4 @@
-import { autoUpdate, computedPosition, type Placement } from 'lite-position';
+import { autoUpdate, computedPosition, flip, type Placement, shift } from 'lite-position';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { useTransitionState } from 'react-transition-state';
@@ -6,8 +6,7 @@ import Box from '../../components/box';
 import Button from '../../components/button';
 import ScrollBox from '../../components/scroll-box';
 import './style.css';
-import flip from 'lite-position/middleware/flip';
-import shift from 'lite-position/middleware/shift';
+import arrow from 'lite-position/middleware/arrow';
 
 export const placements: Placement[] = [
   'top',
@@ -48,13 +47,17 @@ export default function Demo() {
     if (!referenceEl || !popperEl) return;
 
     const handlePopperStyle = () => {
+      popperEl.style.transform = 'translate(0, 0)';
+
       const data = computedPosition(referenceEl, popperEl, {
         placement: placement,
-        middleware: [flip(), shift()],
+        middleware: [arrow({ element: arrowEl }), flip(), shift()],
       });
-      console.log(data);
-
       popperEl.style.transform = `translate(${data.x}px, ${data.y}px)`;
+
+      if (arrowEl) {
+        arrowEl.style.transform = `translate(${data.middlewareData.arrow?.x}px, ${data.middlewareData.arrow?.y}px)`;
+      }
     };
 
     handlePopperStyle();
@@ -65,7 +68,7 @@ export default function Demo() {
     });
 
     return () => cleanup.current?.();
-  }, [referenceEl, popperEl, placement]);
+  }, [referenceEl, popperEl, placement, arrowEl]);
 
   const onChangePlacement = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPlacement(e.target.value as Placement);
