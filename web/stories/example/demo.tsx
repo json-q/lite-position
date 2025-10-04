@@ -6,6 +6,8 @@ import Box from '../../components/box';
 import Button from '../../components/button';
 import ScrollBox from '../../components/scroll-box';
 import './style.css';
+import flip from 'lite-position/middleware/flip';
+import shift from 'lite-position/middleware/shift';
 import { getWin } from 'lite-position/utils/dom';
 
 export const placements: Placement[] = [
@@ -46,18 +48,20 @@ export default function Demo() {
     cleanup.current?.();
     if (!referenceEl || !popperEl) return;
 
+    const scrolls = [...collectScrollElements(referenceEl), ...collectScrollElements(popperEl), getWin(popperEl)];
+    const uniqueScrolls = [...new Set(scrolls)];
+
     const handlePopperStyle = () => {
       const data = computedPosition(referenceEl, popperEl, {
         placement: placement,
+        middleware: [flip({ boundary: uniqueScrolls }), shift()],
       });
+      console.log(data);
 
-      popperEl.style.transform = `translate3d(${data.x}px, ${data.y}px, 0)`;
+      popperEl.style.transform = `translate(${data.x}px, ${data.y}px)`;
     };
 
     handlePopperStyle();
-
-    const scrolls = [...collectScrollElements(referenceEl), ...collectScrollElements(popperEl), getWin(popperEl)];
-    const uniqueScrolls = [...new Map(scrolls.map((element) => [element, element])).values()];
 
     cleanup.current = autoUpdate({
       boundary: uniqueScrolls,

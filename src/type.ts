@@ -9,7 +9,7 @@ export type Placement = Prettify<Side | `${Side}-${Alignment}`>;
 export type Elements = {
   reference: HTMLElement;
   popper: HTMLElement;
-}
+};
 
 export type ElementRects = {
   reference: ClientRectObject;
@@ -21,6 +21,8 @@ export type Coords = {
   x: number;
   y: number;
 };
+
+export type Boundary = Array<Element | Window>;
 
 export type ClientRectObject = {
   width: number;
@@ -70,12 +72,11 @@ export interface LitePositionReturn extends Coords {
 }
 
 export interface MiddlewareReturn extends Partial<Coords> {
- data?: {
+  data?: {
     [key: string]: any;
   };
-  reset?: boolean | { placement?: Placement; rects?: boolean | ElementRects; };
+  reset?: boolean | { placement?: Placement; rects?: boolean | ElementRects };
 }
-
 
 export interface MiddlewareState extends Coords {
   initialPlacement: Placement;
@@ -91,7 +92,9 @@ export type Middleware = {
   fn: (state: MiddlewareState) => MiddlewareReturn;
 };
 
-
-export  interface MiddlewareData{
-  [x:string]:any
+export interface MiddlewareData {
+  [x: string]: any;
+  flip?: {
+    boundaryRect: ClientRectObject;
+  };
 }
