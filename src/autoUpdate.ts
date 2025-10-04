@@ -1,9 +1,13 @@
+import type { Boundary, Elements } from './type';
+import { getAllScrollElements } from './utils/dom';
+
 interface ListenUpdateOptions {
+  elements?: Partial<Elements>;
   /**
    * @desc 边界元素，默认为 reference 和 popper 的所有可滚动父元素
    * @description Boundary element, defaults to all scrollable parent elements of reference and popper
    */
-  boundary?: Array<Element | Window | VisualViewport>;
+  boundary?: Boundary;
   update?: () => void;
   /**
    * @desc 是否为 boundary 注册 scroll 监听
@@ -26,11 +30,13 @@ interface ListenUpdateOptions {
 }
 
 export default function autoUpdate(options: ListenUpdateOptions) {
-  const { boundary = [], scroll = true, resize = true, update } = options;
+  const { boundary, scroll = true, resize = true, update, elements } = options;
+
+  const mergedBoundary = boundary ? [...boundary] : getAllScrollElements(elements);
 
   // When update does not exist, do not register listener, instead of registering noop function
   if (update) {
-    boundary.forEach((parent) => {
+    mergedBoundary.forEach((parent) => {
       scroll && parent.addEventListener('scroll', update, { passive: true });
       resize && parent.addEventListener('resize', update);
     });
@@ -38,7 +44,7 @@ export default function autoUpdate(options: ListenUpdateOptions) {
 
   return () => {
     if (update) {
-      boundary.forEach((parent) => {
+      mergedBoundary.forEach((parent) => {
         scroll && parent.removeEventListener('scroll', update);
         resize && parent.removeEventListener('resize', update);
       });

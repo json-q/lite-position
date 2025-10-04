@@ -1,36 +1,25 @@
-import { getClipMinBoundaryClientRect } from 'lite-position/utils/boundary';
-import { collectScrollElements, getWin } from 'lite-position/utils/dom';
-import rectToClientRect from 'lite-position/utils/rectToClientRect';
 import type { Boundary, ClientRectObject, Middleware, MiddlewareReturn, Side } from '../type';
+import { getClipMinBoundaryClientRect } from '../utils/boundary';
+import { getAllScrollElements } from '../utils/dom';
 import { getOppositePlacement, splitPlacement } from '../utils/placement';
+import rectToClientRect from '../utils/rectToClientRect';
 
 interface FlipOptions {
   /**
    * @description 边缘检测的节点
    * @descEN Boundary elements for edge detection
    */
-  boundary?: Array<Element | Window>;
+  boundary?: Boundary;
 }
 
-const flip = (options: FlipOptions): Middleware => ({
+const flip = (options: FlipOptions = {}): Middleware => ({
   name: 'flip',
   options,
   fn: (state) => {
     const { placement, rects, x, y, elements } = state;
     const { boundary } = options;
 
-    let mergedBoundary: Boundary = [];
-
-    if (boundary) {
-      mergedBoundary = [...boundary];
-    } else {
-      const scrollElements = [
-        ...collectScrollElements(elements.reference),
-        ...collectScrollElements(elements.popper),
-        getWin(elements.popper),
-      ];
-      mergedBoundary = [...new Map(scrollElements.map((element) => [element, element])).values()];
-    }
+    const mergedBoundary = boundary ? [...boundary] : getAllScrollElements(elements);
 
     const [side] = splitPlacement(placement);
 

@@ -1,4 +1,4 @@
-import { autoUpdate, collectScrollElements, computedPosition, type Placement } from 'lite-position';
+import { autoUpdate, computedPosition, type Placement } from 'lite-position';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { useTransitionState } from 'react-transition-state';
@@ -8,7 +8,6 @@ import ScrollBox from '../../components/scroll-box';
 import './style.css';
 import flip from 'lite-position/middleware/flip';
 import shift from 'lite-position/middleware/shift';
-import { getWin } from 'lite-position/utils/dom';
 
 export const placements: Placement[] = [
   'top',
@@ -48,13 +47,10 @@ export default function Demo() {
     cleanup.current?.();
     if (!referenceEl || !popperEl) return;
 
-    const scrolls = [...collectScrollElements(referenceEl), ...collectScrollElements(popperEl), getWin(popperEl)];
-    const uniqueScrolls = [...new Set(scrolls)];
-
     const handlePopperStyle = () => {
       const data = computedPosition(referenceEl, popperEl, {
         placement: placement,
-        middleware: [flip({ boundary: uniqueScrolls }), shift()],
+        middleware: [flip(), shift()],
       });
       console.log(data);
 
@@ -64,8 +60,8 @@ export default function Demo() {
     handlePopperStyle();
 
     cleanup.current = autoUpdate({
-      boundary: uniqueScrolls,
       update: handlePopperStyle,
+      elements: { reference: referenceEl, popper: popperEl },
     });
 
     return () => cleanup.current?.();

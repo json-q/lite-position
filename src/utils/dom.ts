@@ -1,3 +1,5 @@
+import type { Boundary, Elements } from '../type';
+
 export function getWin(ele: Element) {
   return ele.ownerDocument.defaultView || window;
 }
@@ -9,7 +11,9 @@ export function isScrollElement(element: HTMLElement): boolean {
   return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !['contents'].includes(display);
 }
 
-export const collectScrollElements = (element: HTMLElement): HTMLElement[] => {
+export const collectScrollElements = (element?: HTMLElement): HTMLElement[] => {
+  if (!element) return [];
+
   const scrollParents: HTMLElement[] = [];
   let currentParent = element.parentElement;
 
@@ -21,4 +25,13 @@ export const collectScrollElements = (element: HTMLElement): HTMLElement[] => {
   }
 
   return scrollParents;
+};
+
+export const getAllScrollElements = (elements: Partial<Elements> = {}): Boundary => {
+  const scrollElements = [
+    ...collectScrollElements(elements.reference),
+    ...collectScrollElements(elements.popper),
+    elements.popper && getWin(elements.popper),
+  ].filter(Boolean) as Boundary;
+  return [...new Map(scrollElements.map((element) => [element, element])).values()];
 };
