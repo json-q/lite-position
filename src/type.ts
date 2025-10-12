@@ -95,15 +95,16 @@ export type Middleware = {
 
 export interface MiddlewareData {
   [x: string]: any;
-  flip?: {
-    boundaryRect: ClientRectObject;
-  };
   arrow?: {
     x: number;
     y: number;
     rect: ClientRectObject;
   };
   shift?: {
+    offsetX: number;
+    offsetY: number;
+  };
+  offset?: {
     offsetX: number;
     offsetY: number;
   };

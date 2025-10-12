@@ -1,4 +1,4 @@
-import type { Boundary, ClientRectObject, Middleware, MiddlewareReturn, Side } from '../type';
+import type { Boundary, ClientRectObject, Middleware, Side } from '../type';
 import { getClipMinBoundaryClientRect } from '../utils/boundary';
 import { getAllScrollElements } from '../utils/dom';
 import { getOppositePlacement, splitPlacement } from '../utils/placement';
@@ -25,12 +25,7 @@ const flip = (options: FlipOptions = {}): Middleware => ({
 
     // Get minimum boundary
     const boundaryRect = getClipMinBoundaryClientRect(mergedBoundary);
-    // Share minimum boundary rect (shift detection)
-    const baseShared: MiddlewareReturn = {
-      data: {
-        boundaryRect,
-      },
-    };
+    console.log(x, y);
 
     const { popper } = rects;
     const popperRect = rectToClientRect({
@@ -42,8 +37,9 @@ const flip = (options: FlipOptions = {}): Middleware => ({
 
     // Check if current placement overflows
     const isOverflow = detectIsOverflow(side, { boundary: boundaryRect, popper: popperRect });
+
     // If no overflow, no need to flip
-    if (!isOverflow) return { ...baseShared };
+    if (!isOverflow) return {};
 
     // If overflow, flip first
     const flippedPlacement = getOppositePlacement(placement);
@@ -53,11 +49,10 @@ const flip = (options: FlipOptions = {}): Middleware => ({
     const isFlippedOverflow = detectIsOverflow(oppositeSide, { boundary: boundaryRect, popper: popperRect });
 
     // If still overflow after flipping, keep original position
-    if (isFlippedOverflow) return { ...baseShared };
+    if (isFlippedOverflow) return {};
 
     // Return flipped position
     return {
-      ...baseShared,
       reset: {
         rects: true,
         placement: flippedPlacement,
