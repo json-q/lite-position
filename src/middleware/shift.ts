@@ -37,6 +37,10 @@ const shift = (): Middleware => ({
       return {
         x: x + offsetX,
         y: y + offsetY,
+        data: {
+          offsetX,
+          offsetY,
+        },
       };
     }
 

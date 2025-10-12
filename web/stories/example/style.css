@@ -16,8 +16,8 @@
 }
 
 .arrow {
-  width: 30px;
-  height: 30px;
+  width: 10px;
+  height: 10px;
   background-color: red;
   pointer-events: none;
   /* transform: translate(-50%, -50%) rotate(45deg); */

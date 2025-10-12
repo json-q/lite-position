@@ -7,6 +7,7 @@ import Button from '../../components/button';
 import ScrollBox from '../../components/scroll-box';
 import './style.css';
 import arrow from 'lite-position/middleware/arrow';
+import offset from 'lite-position/middleware/offset';
 
 export const placements: Placement[] = [
   'top',
@@ -51,12 +52,16 @@ export default function Demo() {
 
       const data = computedPosition(referenceEl, popperEl, {
         placement: placement,
-        middleware: [arrow({ element: arrowEl }), flip(), shift()],
+        middleware: [shift(), arrow({ element: arrowEl }), offset({ offset: 0 }), flip()],
       });
       popperEl.style.transform = `translate(${data.x}px, ${data.y}px)`;
 
+      console.log(data.middlewareData);
+
       if (arrowEl) {
-        arrowEl.style.transform = `translate(${data.middlewareData.arrow?.x}px, ${data.middlewareData.arrow?.y}px)`;
+        // arrowEl.style.transform = `translate(${data.middlewareData.arrow?.x}px, ${data.middlewareData.arrow?.y}px)`;
+        arrowEl.style.top = `${data.middlewareData.arrow?.y}px`;
+        arrowEl.style.left = `${data.middlewareData.arrow?.x}px`;
       }
     };
 

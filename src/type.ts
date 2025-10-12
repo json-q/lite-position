@@ -23,6 +23,7 @@ export type Coords = {
 };
 
 export type Boundary = Array<Element | Window>;
+export type Padding = number | Prettify<Partial<Record<Side, number>>>;
 
 export type ClientRectObject = {
   width: number;
@@ -101,5 +102,9 @@ export interface MiddlewareData {
     x: number;
     y: number;
     rect: ClientRectObject;
+  };
+  shift?: {
+    offsetX: number;
+    offsetY: number;
   };
 }
