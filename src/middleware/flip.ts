@@ -1,6 +1,5 @@
 import type { Boundary, ClientRectObject, Middleware, Side } from '../type';
 import { getClipMinBoundaryClientRect } from '../utils/boundary';
-import { getAllScrollElements } from '../utils/dom';
 import { getOppositePlacement, splitPlacement } from '../utils/placement';
 import rectToClientRect from '../utils/rectToClientRect';
 
@@ -16,16 +15,13 @@ const flip = (options: FlipOptions = {}): Middleware => ({
   name: 'flip',
   options,
   fn: (state) => {
-    const { placement, rects, x, y, elements } = state;
+    const { placement, rects, x, y, boundaryRect: defaultBoundaryRect } = state;
     const { boundary } = options;
-
-    const mergedBoundary = boundary ? [...boundary] : getAllScrollElements(elements);
 
     const [side] = splitPlacement(placement);
 
     // Get minimum boundary
-    const boundaryRect = getClipMinBoundaryClientRect(mergedBoundary);
-    console.log(x, y);
+    const boundaryRect = boundary ? getClipMinBoundaryClientRect([...boundary]) : defaultBoundaryRect;
 
     const { popper } = rects;
     const popperRect = rectToClientRect({

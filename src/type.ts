@@ -85,6 +85,7 @@ export interface MiddlewareState extends Coords {
   middlewareData: MiddlewareData;
   elements: Elements;
   rects: ElementRects;
+  boundaryRect: ClientRectObject;
 }
 
 export type Middleware = {

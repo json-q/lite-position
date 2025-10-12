@@ -1,4 +1,4 @@
-import { autoUpdate, computedPosition, flip, type Placement, shift } from 'lite-position';
+import { arrow, autoUpdate, computedPosition, flip, offset, type Placement, shift } from 'lite-position';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { useTransitionState } from 'react-transition-state';
@@ -6,8 +6,6 @@ import Box from '../../components/box';
 import Button from '../../components/button';
 import ScrollBox from '../../components/scroll-box';
 import './style.css';
-import arrow from 'lite-position/middleware/arrow';
-import offset from 'lite-position/middleware/offset';
 
 export const placements: Placement[] = [
   'top',
@@ -25,6 +23,7 @@ export const placements: Placement[] = [
 ];
 
 export default function Demo() {
+  const [offsetNum, setOffsetNum] = React.useState(0);
   const [showArrow, setShowArrow] = React.useState(false);
   const [placement, setPlacement] = React.useState<Placement>('top');
 
@@ -39,6 +38,7 @@ export default function Demo() {
     timeout: 150,
     preEnter: true,
     initialEntered: false,
+    // initialEntered: true,
     mountOnEnter: true,
     unmountOnExit: true,
   });
@@ -52,11 +52,9 @@ export default function Demo() {
 
       const data = computedPosition(referenceEl, popperEl, {
         placement: placement,
-        middleware: [shift(), arrow({ element: arrowEl }), offset({ offset: 0 }), flip()],
+        middleware: [shift(), arrow({ element: arrowEl }), offset({ offset: offsetNum }), flip()],
       });
       popperEl.style.transform = `translate(${data.x}px, ${data.y}px)`;
-
-      console.log(data.middlewareData);
 
       if (arrowEl) {
         // arrowEl.style.transform = `translate(${data.middlewareData.arrow?.x}px, ${data.middlewareData.arrow?.y}px)`;
@@ -73,7 +71,7 @@ export default function Demo() {
     });
 
     return () => cleanup.current?.();
-  }, [referenceEl, popperEl, placement, arrowEl]);
+  }, [referenceEl, popperEl, placement, arrowEl, offsetNum]);
 
   const onChangePlacement = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPlacement(e.target.value as Placement);
@@ -91,6 +89,8 @@ export default function Demo() {
           <input type="checkbox" checked={showArrow} id="arrow" onChange={(e) => setShowArrow(e.target.checked)} />
           <span style={{ fontSize: 14 }}>ShowArrow</span>
         </label>
+
+        <input type="number" value={offsetNum} onChange={(e) => setOffsetNum(Number(e.target.value))} />
       </div>
 
       <ScrollBox ref={scrollBoxRef}>

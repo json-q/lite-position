@@ -1,6 +1,6 @@
-import { splitPlacement } from 'lite-position/utils/placement';
 import type { Coords, Middleware } from '../type';
 import getBoundingClientRect from '../utils/getBoundingClientRect';
+import { splitPlacement } from '../utils/placement';
 
 interface ArrowOptions {
   /**

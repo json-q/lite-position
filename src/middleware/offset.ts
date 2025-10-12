@@ -1,5 +1,5 @@
-import { splitPlacement } from 'lite-position/utils/placement';
 import type { Middleware } from '../type';
+import { splitPlacement } from '../utils/placement';
 
 interface OffsetOptions {
   /**
