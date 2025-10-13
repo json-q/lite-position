@@ -1,4 +1,4 @@
-import { arrow, autoUpdate, computedPosition, flip, offset, type Placement, shift } from 'lite-position';
+import { arrow, autoUpdate, computePosition, flip, offset, type Placement, shift } from 'lite-position';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { useTransitionState } from 'react-transition-state';
@@ -50,7 +50,7 @@ export default function Demo() {
     const handlePopperStyle = () => {
       popperEl.style.transform = 'translate(0, 0)';
 
-      const data = computedPosition(referenceEl, popperEl, {
+      const data = computePosition(referenceEl, popperEl, {
         placement: placement,
         middleware: [shift(), arrow({ element: arrowEl }), offset({ offset: offsetNum }), flip()],
       });

@@ -11,7 +11,7 @@ function getElementRects(reference: HTMLElement, popper: HTMLElement): ElementRe
   };
 }
 
-export default function computedPosition(reference: HTMLElement, popper: HTMLElement, opt: LitePositionOptions = {}) {
+export default function computePosition(reference: HTMLElement, popper: HTMLElement, opt: LitePositionOptions = {}) {
   if (!reference || !popper) {
     throw new Error('`reference` or `popper` is missing');
   }
