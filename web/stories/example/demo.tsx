@@ -5,22 +5,8 @@ import { useTransitionState } from 'react-transition-state';
 import Box from '../../components/box';
 import Button from '../../components/button';
 import ScrollBox from '../../components/scroll-box';
+import { placements } from '../../util';
 import './style.css';
-
-export const placements: Placement[] = [
-  'top',
-  'right',
-  'bottom',
-  'left',
-  'top-start',
-  'top-end',
-  'right-start',
-  'right-end',
-  'bottom-start',
-  'bottom-end',
-  'left-start',
-  'left-end',
-];
 
 export default function Demo() {
   const [offsetNum, setOffsetNum] = React.useState(0);
@@ -38,7 +24,6 @@ export default function Demo() {
     timeout: 150,
     preEnter: true,
     initialEntered: false,
-    // initialEntered: true,
     mountOnEnter: true,
     unmountOnExit: true,
   });
@@ -57,7 +42,6 @@ export default function Demo() {
       popperEl.style.transform = `translate(${data.x}px, ${data.y}px)`;
 
       if (arrowEl) {
-        // arrowEl.style.transform = `translate(${data.middlewareData.arrow?.x}px, ${data.middlewareData.arrow?.y}px)`;
         arrowEl.style.top = `${data.middlewareData.arrow?.y}px`;
         arrowEl.style.left = `${data.middlewareData.arrow?.x}px`;
       }

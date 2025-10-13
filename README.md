@@ -6,6 +6,10 @@ This is an experimental package that contains some core functionalities of `popp
 
 > This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks.
 
+## Usage
+
+**We only support `position: fixed`**
+
 ```js
 import {
   shift,
@@ -34,8 +38,11 @@ function updatePosition() {
 
 updatePosition();
 
-autoUpdate({
+const cleanup = autoUpdate({
   elements: { reference: btnEl, popper: tooltipEl },
   update: updatePosition,
 });
+
+// when you want to remove listener
+// cleanup()
 ```

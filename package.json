@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/json-q/lite-position"
+    "url": "git+https://github.com/json-q/lite-position.git"
   },
   "homepage": "https://github.com/json-q/lite-position",
   "exports": {
