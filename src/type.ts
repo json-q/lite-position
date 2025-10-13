@@ -46,19 +46,6 @@ export type Rect = {
 export type LitePositionOptions = {
   placement?: Placement;
   middleware?: Array<Middleware | null | undefined | false>;
-  // placement?: Placement;
-  // /**
-  //  * @desc 边缘检测的节点，通常情况下，此属性与 `autoUpdate` 的 boundary 数据应保持相同
-  //  * @descEN Boundary elements for edge detection. This property should typically match the boundary data in `autoUpdate`.
-  //  */
-  // boundary?: Array<Element | Window>;
-  // arrow?: HTMLElement;
-  // /**
-  //  * @description 是否自动应用样式
-  //  * @descEN Whether to automatically apply styles
-  //  * @default true
-  //  */
-  // applyStyle?: boolean;
 };
 
 export interface LitePositionReturn extends Coords {

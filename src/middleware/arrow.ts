@@ -39,7 +39,7 @@ const arrow = (options: ArrowOptions): Middleware => ({
       popperCoords.x = side === 'left' ? popperCoords.x - arrowRect.width : popperCoords.x + arrowRect.width;
     }
 
-    // reference 中心相对于popper的位置
+    // reference 中心相对于 popper 的位置
     const referenceCenter = {
       x: reference.x + reference.width / 2 - popperCoords.x,
       y: reference.y + reference.height / 2 - popperCoords.y,

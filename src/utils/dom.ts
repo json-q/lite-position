@@ -33,5 +33,5 @@ export const getAllScrollElements = (elements: Partial<Elements> = {}): Boundary
     ...collectScrollElements(elements.popper),
     elements.popper && getWin(elements.popper),
   ].filter(Boolean) as Boundary;
-  return [...new Map(scrollElements.map((element) => [element, element])).values()];
+  return [...new Set(scrollElements)];
 };
