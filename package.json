@@ -22,6 +22,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@swc/helpers": "^0.5.17",
     "intersection-observer": "^0.12.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

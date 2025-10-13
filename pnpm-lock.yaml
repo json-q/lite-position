@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@swc/helpers':
+        specifier: ^0.5.17
+        version: 0.5.17
       intersection-observer:
         specifier: ^0.12.2
         version: 0.12.2

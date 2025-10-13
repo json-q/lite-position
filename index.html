@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./dist/browser/index.js"></script>
+    <style>
+      .scroll-box {
+        position: relative;
+        width: 500px;
+        height: 380px;
+        overflow: auto;
+        background-color: #f8f8f8;
+        margin-top: 32px;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        margin-bottom: 32px;
+        scrollbar-width: thin;
+      }
+
+      #button {
+        position: relative;
+        top: 1000px;
+        left: 1000px;
+      }
+
+      #tooltip {
+        width: max-content;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 90%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-box">
+      <button id="button" aria-describedby="tooltip">My button</button>
+      <div style="width: 2000px; height: 2000px"></div>
+    </div>
+
+    <div id="tooltip" role="tooltip">My tooltip</div>
+  </body>
+
+  <script>
+    const WIDTH = 500;
+    const HEIGHT = 380;
+
+    const { shift, offset, flip, arrow, autoUpdate, computedPosition } =
+      LitePosition;
+
+    const scrollBox = document.querySelector(".scroll-box");
+    const btn = document.querySelector("#button");
+    const tooltip = document.querySelector("#tooltip");
+
+    initScroll();
+
+    function initScroll() {
+      const btnRect = btn.getBoundingClientRect();
+      scrollBox.scrollLeft = 1000 - WIDTH / 2 + btnRect.width / 2;
+      scrollBox.scrollTop = 1000 - HEIGHT / 2 + btnRect.height / 2;
+    }
+
+    updatePosition();
+
+    function updatePosition() {
+      const { x, y } = computedPosition(btn, tooltip, {
+        placement: "top",
+        middleware: [
+          shift(),
+          // arrow({ element: arrowEl }),
+          // offset({ offset: 0 }),
+          flip(),
+        ],
+      });
+      Object.assign(tooltip.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    }
+
+    autoUpdate({
+      elements: { reference: btn, popper: tooltip },
+      update: updatePosition,
+    });
+  </script>
+</html>
