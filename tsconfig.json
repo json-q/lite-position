@@ -28,6 +28,6 @@
       "lite-position/*": ["./src/*"]
     }
   },
-  "include": ["src", "web", "**/*.d.ts"],
+  "include": ["src", "web"],
   "exclude": ["dist", "build", "es", "lib", "node_modules"]
 }

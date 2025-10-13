@@ -8,6 +8,14 @@ import ScrollBox from '../../components/scroll-box';
 import { placements } from '../../util';
 import './style.css';
 
+const positionStyle: React.CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  bottom: 'auto',
+  right: 'auto',
+};
+
 export default function Demo() {
   const [offsetNum, setOffsetNum] = React.useState(0);
   const [showArrow, setShowArrow] = React.useState(false);
@@ -50,7 +58,7 @@ export default function Demo() {
     handlePopperStyle();
 
     cleanup.current = autoUpdate({
-      update: handlePopperStyle,
+      update: () => requestAnimationFrame(handlePopperStyle),
       elements: { reference: referenceEl, popper: popperEl },
     });
 
@@ -85,10 +93,12 @@ export default function Demo() {
 
       {isMounted &&
         createPortal(
-          <div ref={setPopperEl} style={{ position: 'fixed', left: 0, top: 0, minWidth: 'max-content' }}>
+          <div ref={setPopperEl} style={{ ...positionStyle, minWidth: 'max-content', willChange: 'transform' }}>
             <div className={`transition-apply ${status}`}>
               <Box>Popper</Box>
-              {showArrow && <div className="arrow" ref={setArrowEl} style={{ position: 'fixed', top: 0, left: 0 }} />}
+              {showArrow && (
+                <div className="arrow" ref={setArrowEl} style={{ ...positionStyle, willChange: 'top,left' }} />
+              )}
             </div>
           </div>,
           document.body,

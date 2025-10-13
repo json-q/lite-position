@@ -4,7 +4,7 @@ An experimental lite position like popper.js
 
 This is an experimental package that contains some core functionalities of `popper.js` but with a smaller size.
 
-> This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks.
+> This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks.:)
 
 ## Usage
 
@@ -40,9 +40,25 @@ updatePosition();
 
 const cleanup = autoUpdate({
   elements: { reference: btnEl, popper: tooltipEl },
-  update: updatePosition,
+  update: () => requestAnimationFrame(updatePosition),
 });
 
 // when you want to remove listener
 // cleanup()
 ```
+
+We don't handle performance issues internally.
+
+Recommended to use `requestAnimationFrame` when calling `update`, otherwise `autoUpdate({ update: updatePosition })` will be very laggy when scrolling quickly.
+
+Recommended to add `will-change` to the popper element.
+
+## Polyfill
+
+If you need to support older browsers and can't use `requestAnimationFrame`, you can `import { raf } from "lite-position/polyfill"`
+
+We provide the following API to ensure compatibility
+
+- `raf`: requestAnimationFrame
+- `caf`: cancelAnimationFrame
+- `now`: performance.now
