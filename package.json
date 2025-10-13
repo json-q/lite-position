@@ -1,7 +1,13 @@
 {
   "name": "lite-position",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/json-q/lite-position"
+  },
+  "homepage": "https://github.com/json-q/lite-position",
   "exports": {
     ".": {
       "types": "./dist/es/index.d.ts",

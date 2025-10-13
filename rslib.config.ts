@@ -28,6 +28,7 @@ export default defineConfig({
     {
       bundle: false,
       dts: true,
+      syntax: 'es5',
       externalHelpers: true,
       format: 'esm',
       source: {

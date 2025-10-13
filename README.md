@@ -1,1 +1,41 @@
-An experimental lite position like popper.js
+A lite position like popper.js
+
+# Lite Position
+
+This is an experimental package that contains some core functionalities of `popper.js` but with a smaller size.
+
+> This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks.
+
+```js
+import {
+  shift,
+  offset,
+  flip,
+  arrow,
+  autoUpdate,
+  computePosition,
+} from "lite-position";
+
+function updatePosition() {
+  const { x, y } = computePosition(btnEl, tooltipEl, {
+    placement: "top",
+    middleware: [
+      shift(),
+      // arrow({ element: arrowEl }), // if you need
+      // offset({ offset: 0 }), // if you need
+      flip(),
+    ],
+  });
+  Object.assign(tooltipEl.style, {
+    left: `${x}px`,
+    top: `${y}px`,
+  });
+}
+
+updatePosition();
+
+autoUpdate({
+  elements: { reference: btnEl, popper: tooltipEl },
+  update: updatePosition,
+});
+```
