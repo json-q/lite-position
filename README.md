@@ -1,4 +1,4 @@
-A lite position like popper.js
+An experimental lite position like popper.js
 
 # Lite Position
 

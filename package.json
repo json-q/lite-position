@@ -1,5 +1,6 @@
 {
   "name": "lite-position",
+  "description": "A experimental lite position like popper.js",
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
