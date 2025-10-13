@@ -8,6 +8,10 @@ This is an experimental package that contains some core functionalities of `popp
 
 ## Usage
 
+```bash
+npm i lite-position
+```
+
 **We only support `position: fixed`**
 
 ```js
@@ -55,7 +59,7 @@ Recommended to add `will-change` to the popper element.
 
 ## Polyfill
 
-If you need to support older browsers and can't use `requestAnimationFrame`, you can `import { raf } from "lite-position/polyfill"`
+If you need to support older browsers and can't use `requestAnimationFrame`, you can `import { raf } from "lite-position"`
 
 We provide the following API to ensure compatibility
 
