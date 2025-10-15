@@ -1,5 +1,5 @@
-import type { Boundary, ClientRectObject, Middleware, Side } from '../type';
-import { getClipMinBoundaryClientRect } from '../utils/boundary';
+import type { ClientRectObject, Middleware, Side } from '../type';
+import { getClipBoundaryClientRect } from '../utils/boundary';
 import { getOppositePlacement, splitPlacement } from '../utils/placement';
 import rectToClientRect from '../utils/rectToClientRect';
 
@@ -8,7 +8,7 @@ interface FlipOptions {
    * @description 边缘检测的节点
    * @descEN Boundary elements for edge detection
    */
-  boundary?: Boundary;
+  boundary?: Element | Window;
 }
 
 const flip = (options: FlipOptions = {}): Middleware => ({
@@ -21,7 +21,7 @@ const flip = (options: FlipOptions = {}): Middleware => ({
     const [side] = splitPlacement(placement);
 
     // Get minimum boundary
-    const boundaryRect = boundary ? getClipMinBoundaryClientRect([...boundary]) : defaultBoundaryRect;
+    const boundaryRect = boundary ? getClipBoundaryClientRect(boundary) : defaultBoundaryRect;
 
     const { popper } = rects;
     const popperRect = rectToClientRect({

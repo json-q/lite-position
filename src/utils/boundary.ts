@@ -3,23 +3,13 @@ import type { ClientRectObject } from '../type';
 import getBoundingClientRect from './getBoundingClientRect';
 import rectToClientRect from './rectToClientRect';
 
-export function getClipMinBoundaryClientRect(boundary: Array<Element | Window>) {
-  const clipBoundary = boundary.map((el) => getInnerBoundingClientRect(el));
-
-  const clipRect = clipBoundary.reduce((accRect, rect) => {
-    accRect.top = Math.max(rect.top, accRect.top);
-    accRect.right = Math.min(rect.right, accRect.right);
-    accRect.bottom = Math.min(rect.bottom, accRect.bottom);
-    accRect.left = Math.max(rect.left, accRect.left);
-
-    return accRect;
-  }, clipBoundary[0]);
-
+export function getClipBoundaryClientRect(boundary: Element | Window) {
+  const rect = getInnerBoundingClientRect(boundary);
   return rectToClientRect({
-    width: clipRect.right - clipRect.left,
-    height: clipRect.bottom - clipRect.top,
-    x: clipRect.left,
-    y: clipRect.top,
+    width: Math.max(0, rect.right - rect.left),
+    height: Math.max(0, rect.bottom - rect.top),
+    x: rect.left,
+    y: rect.top,
   });
 }
 

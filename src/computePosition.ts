@@ -1,7 +1,7 @@
 import computePopperCoords from './core/computePopperCoords';
 import type { ElementRects, Elements, LitePositionOptions, Middleware, MiddlewareData } from './type';
-import { getClipMinBoundaryClientRect } from './utils/boundary';
-import { getAllScrollElements } from './utils/dom';
+import { getClipBoundaryClientRect } from './utils/boundary';
+import { getNearestScrollBoundary } from './utils/dom';
 import getBoundingClientRect from './utils/getBoundingClientRect';
 
 function getElementRects(reference: HTMLElement, popper: HTMLElement): ElementRects {
@@ -20,8 +20,7 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
 
   const elements: Elements = { reference, popper };
   let rects: ElementRects = getElementRects(reference, popper);
-  const boundarys = getAllScrollElements(elements);
-  const boundaryRect = getClipMinBoundaryClientRect(boundarys);
+  const boundaryRect = getClipBoundaryClientRect(getNearestScrollBoundary(elements));
 
   const validMiddleware = middleware.filter(Boolean) as Middleware[];
 
@@ -86,6 +85,5 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
     placement: statefulPlacement,
     middlewareData,
     rects,
-    boundarys,
   };
 }

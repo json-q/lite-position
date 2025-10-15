@@ -1,6 +1,7 @@
 import type { Boundary, Elements } from '../type';
 
-export function getWin(ele: Element) {
+export function getWin(ele?: Element) {
+  if (!ele) return window;
   return ele.ownerDocument.defaultView || window;
 }
 
@@ -34,4 +35,11 @@ export function getAllScrollElements(elements: Partial<Elements> = {}): Boundary
     elements.popper && getWin(elements.popper),
   ].filter(Boolean) as Boundary;
   return [...new Set(scrollElements)];
+}
+
+export function getNearestScrollBoundary(elements: Elements): Element | Window {
+  const referenceScrollParents = collectScrollElements(elements.reference);
+
+  // 返回最近的共同滚动容器，如果没有则返回视口
+  return referenceScrollParents.length > 0 ? referenceScrollParents[0] : getWin(elements.reference);
 }

@@ -9,7 +9,7 @@ This is an experimental package that contains some core functionalities of `popp
 ## Usage
 
 ```bash
-npm i lite-position
+npm install lite-position
 ```
 
 **We only support `position: fixed`**
@@ -31,7 +31,7 @@ function updatePosition() {
       shift(),
       // arrow({ element: arrowEl }), // if you need
       // offset({ offset: 0 }), // if you need
-      flip(),
+      flip(), // only detect nearest element/window
     ],
   });
   Object.assign(tooltipEl.style, {
