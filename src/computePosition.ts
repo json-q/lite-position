@@ -29,6 +29,7 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
   let statefulPlacement = placement;
   let middlewareData: MiddlewareData = {};
 
+  let resetCount = 0;
   for (let i = 0; i < validMiddleware.length; i++) {
     const { name, fn } = validMiddleware[i];
 
@@ -59,7 +60,9 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
       },
     };
 
-    if (reset) {
+    if (reset && resetCount < 12) {
+      resetCount++;
+
       if (typeof reset === 'object') {
         if (reset.placement) {
           statefulPlacement = reset.placement;
@@ -81,5 +84,6 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
     y,
     placement: statefulPlacement,
     middlewareData,
+    rects,
   };
 }
