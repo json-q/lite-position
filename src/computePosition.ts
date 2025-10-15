@@ -20,7 +20,8 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
 
   const elements: Elements = { reference, popper };
   let rects: ElementRects = getElementRects(reference, popper);
-  const boundaryRect = getClipMinBoundaryClientRect(getAllScrollElements(elements));
+  const boundarys = getAllScrollElements(elements);
+  const boundaryRect = getClipMinBoundaryClientRect(boundarys);
 
   const validMiddleware = middleware.filter(Boolean) as Middleware[];
 
@@ -85,5 +86,6 @@ export default function computePosition(reference: HTMLElement, popper: HTMLElem
     placement: statefulPlacement,
     middlewareData,
     rects,
+    boundarys,
   };
 }
