@@ -21,12 +21,6 @@ interface ListenUpdateOptions {
    * @default true
    */
   resize?: boolean;
-  /**
-   * @desc 当布局导致 reference 或 popper 布局改变时，是否触发 update
-   * @descEN Whether to trigger update when layout changes cause reference or popper layout to change
-   * @default true
-   */
-  layout?: boolean;
 }
 
 export default function autoUpdate(options: ListenUpdateOptions) {
@@ -38,16 +32,16 @@ export default function autoUpdate(options: ListenUpdateOptions) {
   if (update) {
     mergedBoundary.forEach((parent) => {
       scroll && parent.addEventListener('scroll', update, { passive: true });
-      resize && parent.addEventListener('resize', update);
     });
+    resize && window.addEventListener('resize', update);
   }
 
   return () => {
     if (update) {
       mergedBoundary.forEach((parent) => {
         scroll && parent.removeEventListener('scroll', update);
-        resize && parent.removeEventListener('resize', update);
       });
+      resize && window.removeEventListener('resize', update);
     }
   };
 }

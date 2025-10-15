@@ -20,16 +20,18 @@ if (!raf || !caf) {
     return !!raf && !!caf;
   });
 
-  let lastTime = 0;
-  raf = (callback: FrameRequestCallback) => {
-    const curr = now(),
-      next = Math.max(lastTime + 1000 / 60, curr);
-    return setTimeout(() => {
-      lastTime = next;
-      callback(lastTime);
-    }, next - curr) as any;
-  };
-  caf = (h) => clearTimeout(h);
+  if (!raf || !caf) {
+    let lastTime = 0;
+    raf = (callback: FrameRequestCallback) => {
+      const curr = now(),
+        next = Math.max(lastTime + 1000 / 60, curr);
+      return setTimeout(() => {
+        lastTime = next;
+        callback(lastTime);
+      }, next - curr) as any;
+    };
+    caf = (h) => clearTimeout(h);
+  }
 }
 
 export { raf, caf, now };
