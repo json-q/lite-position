@@ -1,20 +1,5 @@
 import { pluginReact } from '@rsbuild/plugin-react';
-import { defineConfig, type LibConfig } from '@rslib/core';
-
-const commonUmdConfig: LibConfig = {
-  bundle: true,
-  format: 'umd',
-  umdName: 'LitePosition',
-  source: {
-    entry: {
-      index: './src/index.ts',
-    },
-  },
-  output: {
-    minify: true,
-    distPath: { root: './dist/browser-polyfill' },
-  },
-};
+import { defineConfig } from '@rslib/core';
 
 export default defineConfig({
   plugins: [pluginReact()],
@@ -28,8 +13,7 @@ export default defineConfig({
     {
       bundle: false,
       dts: true,
-      syntax: 'es5',
-      externalHelpers: true,
+      syntax: 'es6',
       format: 'esm',
       source: {
         entry: {
@@ -37,23 +21,22 @@ export default defineConfig({
         },
       },
       output: {
-        distPath: { root: './dist/es' },
+        distPath: { root: './es' },
       },
     },
     {
-      ...commonUmdConfig,
-      syntax: 'es5',
-      output: {
-        ...commonUmdConfig.output,
-        distPath: { root: './dist/browser-polyfill' },
+      bundle: true,
+      format: 'umd',
+      umdName: 'LitePosition',
+      source: {
+        entry: {
+          index: './src/index.ts',
+        },
       },
-    },
-    {
-      ...commonUmdConfig,
-      externalHelpers: true,
+      syntax: 'es6',
       output: {
-        ...commonUmdConfig.output,
-        distPath: { root: './dist/browser' },
+        minify: true,
+        distPath: { root: './dist' },
       },
     },
   ],

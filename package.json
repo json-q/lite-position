@@ -11,14 +11,16 @@
   "homepage": "https://github.com/json-q/lite-position",
   "exports": {
     ".": {
-      "types": "./dist/es/index.d.ts",
-      "import": "./dist/es/index.js"
+      "types": "./es/index.d.ts",
+      "import": "./es/index.js"
     }
   },
-  "types": "./dist/es/index.d.ts",
+  "types": "./es/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "es"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "rslib build",
     "build:sb": "storybook build",
@@ -28,14 +30,11 @@
     "sb": "storybook dev -p 6006 --no-open",
     "test": "vitest run"
   },
-  "dependencies": {
-    "@swc/helpers": "^0.5.17"
-  },
   "devDependencies": {
     "@biomejs/biome": "2.2.6",
     "@rsbuild/core": "^1.5.17",
     "@rsbuild/plugin-react": "^1.4.1",
-    "@rslib/core": "^0.14.0",
+    "@rslib/core": "^0.15.1",
     "@storybook/addon-docs": "^9.1.10",
     "@storybook/addon-essentials": "9.0.0-alpha.12",
     "@storybook/addon-interactions": "9.0.0-alpha.10",

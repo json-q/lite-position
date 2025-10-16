@@ -2,7 +2,7 @@ An experimental lite position like popper.js
 
 # Lite Position
 
-This is an experimental package that contains some core functionalities of `popper.js` but with a smaller size.
+This is an experimental package that contains some core functionalities of `popper.js` but with a smaller size. Gzip is less than 3kb
 
 > This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks.:)
 
@@ -12,7 +12,7 @@ This is an experimental package that contains some core functionalities of `popp
 npm install lite-position
 ```
 
-**We only support `position: fixed`**
+**We only support `position: fixed`**. Recommended to set the middleware in the order of `shift`, `arrow`, `offset`, `flip`
 
 ```js
 import {
@@ -53,15 +53,18 @@ const cleanup = autoUpdate({
 
 We don't handle performance issues internally.
 
-Recommended to use `requestAnimationFrame` when calling `update`, otherwise `autoUpdate({ update: updatePosition })` will be very laggy when scrolling quickly.
-
-Recommended to add `will-change` to the popper element.
+- Use `requestAnimationFrame` when calling `update`
+- Add `will-change` to the popper element.
 
 ## Polyfill
 
-If you need to support older browsers and can't use `requestAnimationFrame`, you can `import { raf } from "lite-position"`
+`lite-position` only supports modern browsers by default. If you need to support IE11, please use `core-js` to polyfill `lite-position`
 
-We provide the following API to ensure compatibility
+```js
+includes: [/node_modules[\\/]lite-position[\\/]/];
+```
+
+We provide the following API to ensure compatibility, you can `import { xxx } from "lite-position"`
 
 - `raf`: requestAnimationFrame
 - `caf`: cancelAnimationFrame
