@@ -29,12 +29,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@swc/helpers": "^0.5.17",
-    "intersection-observer": "^0.12.2",
-    "resize-observer-polyfill": "^1.5.1"
+    "@swc/helpers": "^0.5.17"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.5",
+    "@biomejs/biome": "2.2.6",
     "@rsbuild/core": "^1.5.17",
     "@rsbuild/plugin-react": "^1.4.1",
     "@rslib/core": "^0.14.0",
@@ -48,8 +46,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "clsx": "^2.1.1",
-    "jsdom": "^27.0.0",
-    "react": "^19.1.1",
+    "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-transition-state": "^2.3.1",
     "storybook": "^9.1.10",
