@@ -14,7 +14,6 @@ export type Elements = {
 export type ElementRects = {
   reference: ClientRectObject;
   popper: ClientRectObject;
-  // arrow?: ClientRectObject;
 };
 
 export type Coords = {

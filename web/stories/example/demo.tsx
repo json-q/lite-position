@@ -1,4 +1,5 @@
-import { arrow, autoUpdate, computePosition, flip, offset, type Placement, shift } from 'lite-position';
+import type { Placement } from 'lite-position';
+import { arrow, autoUpdate, computePosition, flip, offset, shift } from 'lite-position';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { useTransitionState } from 'react-transition-state';
@@ -43,15 +44,15 @@ export default function Demo() {
     const handlePopperStyle = () => {
       popperEl.style.transform = 'translate(0, 0)';
 
-      const data = computePosition(referenceEl, popperEl, {
+      const { x, y, middlewareData } = computePosition(referenceEl, popperEl, {
         placement: placement,
         middleware: [shift(), arrow({ element: arrowEl }), offset({ offset: offsetNum }), flip()],
       });
-      popperEl.style.transform = `translate(${data.x}px, ${data.y}px)`;
+      popperEl.style.transform = `translate(${x}px, ${y}px)`;
 
       if (arrowEl) {
-        arrowEl.style.top = `${data.middlewareData.arrow?.y}px`;
-        arrowEl.style.left = `${data.middlewareData.arrow?.x}px`;
+        arrowEl.style.top = `${middlewareData.arrow?.y}px`;
+        arrowEl.style.left = `${middlewareData.arrow?.x}px`;
       }
     };
 
