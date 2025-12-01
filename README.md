@@ -4,7 +4,7 @@ An experimental lite position like popper.js
 
 This is an experimental package that contains some core functionalities of `popper.js` but with a smaller size. Gzip is less than 3kb
 
-> This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks.:)
+> This is for my own learning and use. I don't guarantee continuous maintenance, so I don't recommend using it in your production environment. Thanks. :)
 
 ## Usage
 
@@ -12,7 +12,7 @@ This is an experimental package that contains some core functionalities of `popp
 npm install lite-position
 ```
 
-**We only support `position: fixed`**. Recommended to set the middleware in the order of `shift`, `arrow`, `offset`, `flip`
+**Only support `position: fixed`**. Recommended to set the middleware in the order of `shift`, `arrow`, `offset`, `flip`
 
 ```js
 import {

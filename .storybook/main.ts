@@ -1,4 +1,8 @@
+import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
+
+const require = createRequire(import.meta.url);
+
 import type { StorybookConfig } from 'storybook-react-rsbuild';
 
 /**
@@ -13,9 +17,6 @@ const config: StorybookConfig = {
   stories: ['../web/**/*.mdx', '../web/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-docs',
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
     {
       name: getAbsolutePath('storybook-addon-rslib'),
     },
